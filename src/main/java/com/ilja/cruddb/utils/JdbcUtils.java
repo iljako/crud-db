@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class JdbcUtils {
     private static volatile JdbcUtils instance;
@@ -25,5 +26,12 @@ public class JdbcUtils {
             instance = new JdbcUtils();
         }
         return connection.prepareStatement(sql);
+    }
+
+    public static Statement getStatement() throws SQLException {
+        if (instance == null) {
+            instance = new JdbcUtils();
+        }
+        return connection.createStatement();
     }
 }

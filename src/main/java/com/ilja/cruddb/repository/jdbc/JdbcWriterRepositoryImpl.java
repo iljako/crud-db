@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.ilja.cruddb.utils.JdbcUtils.getPreparedStatement;
+import static com.ilja.cruddb.utils.JdbcUtils.getStatement;
 
 public class JdbcWriterRepositoryImpl implements WriterRepository {
 
@@ -72,8 +73,7 @@ public class JdbcWriterRepositoryImpl implements WriterRepository {
     public List<Writer> findAll() {
         String sql = "SELECT * FROM writers ORDER BY last_name, first_name";
         List<Writer> writers = new ArrayList<>();
-        try (Connection conn = dataSource.getConnection();
-             Statement stmt = conn.createStatement();
+        try (Statement stmt = getStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {

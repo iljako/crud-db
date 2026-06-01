@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.ilja.cruddb.utils.JdbcUtils.getPreparedStatement;
+import static com.ilja.cruddb.utils.JdbcUtils.getStatement;
 
 public class JdbcLabelRepositoryImpl implements LabelRepository {
 
@@ -70,8 +71,7 @@ public class JdbcLabelRepositoryImpl implements LabelRepository {
     public List<Label> findAll() {
         String sql = "SELECT * FROM labels";
         List<Label> labels = new ArrayList<>();
-        try (Connection conn = dataSource.getConnection();
-             Statement stmt = conn.createStatement();
+        try (Statement stmt = getStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.ilja.cruddb.utils.JdbcUtils.getPreparedStatement;
+import static com.ilja.cruddb.utils.JdbcUtils.getStatement;
 
 public class JdbcPostRepositoryImpl implements PostRepository {
 
@@ -83,8 +84,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
     public List<Post> findAll() {
         String sql = "SELECT * FROM posts ORDER BY created DESC";
         List<Post> posts = new ArrayList<>();
-        try (Connection conn = dataSource.getConnection();
-             Statement stmt = conn.createStatement();
+        try (Statement stmt = getStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
