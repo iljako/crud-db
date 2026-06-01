@@ -1,6 +1,7 @@
-package com.ilja.cruddb.repository;
+package com.ilja.cruddb.repository.jdbc;
 
 import com.ilja.cruddb.model.Label;
+import com.ilja.cruddb.repository.LabelRepository;
 
 import javax.sql.DataSource;
 import java.sql.*;

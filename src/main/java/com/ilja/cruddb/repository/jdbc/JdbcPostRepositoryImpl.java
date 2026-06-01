@@ -1,7 +1,8 @@
-package com.ilja.cruddb.repository;
+package com.ilja.cruddb.repository.jdbc;
 
 import com.ilja.cruddb.model.Post;
 import com.ilja.cruddb.model.PostStatus;
+import com.ilja.cruddb.repository.PostRepository;
 
 import javax.sql.DataSource;
 import java.sql.*;
