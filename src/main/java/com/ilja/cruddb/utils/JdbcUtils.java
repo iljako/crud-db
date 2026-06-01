@@ -16,7 +16,7 @@ public class JdbcUtils {
             connection = DatabaseConfig.getDataSource().getConnection();
         }
         catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 

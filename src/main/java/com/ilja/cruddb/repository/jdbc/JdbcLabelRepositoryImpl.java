@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ilja.cruddb.utils.JdbcUtils.getPreparedStatement;
+
 public class JdbcLabelRepositoryImpl implements LabelRepository {
 
     private final DataSource dataSource;
@@ -23,8 +25,7 @@ public class JdbcLabelRepositoryImpl implements LabelRepository {
                 "INSERT INTO labels (name) VALUES (?)" :
                 "UPDATE labels SET name = ? WHERE id = ?";
 
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setString(1, label.getName());
             if (label.getId() != null) {
@@ -48,8 +49,7 @@ public class JdbcLabelRepositoryImpl implements LabelRepository {
     @Override
     public Optional<Label> findById(Long id) {
         String sql = "SELECT * FROM labels WHERE id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -89,8 +89,7 @@ public class JdbcLabelRepositoryImpl implements LabelRepository {
     @Override
     public void deleteById(Long id) {
         String sql = "DELETE FROM labels WHERE id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, id);
             stmt.executeUpdate();
@@ -102,8 +101,7 @@ public class JdbcLabelRepositoryImpl implements LabelRepository {
     @Override
     public Optional<Label> findByName(String name) {
         String sql = "SELECT * FROM labels WHERE name = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setString(1, name);
             try (ResultSet rs = stmt.executeQuery()) {

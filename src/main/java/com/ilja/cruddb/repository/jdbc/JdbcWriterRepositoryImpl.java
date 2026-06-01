@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ilja.cruddb.utils.JdbcUtils.getPreparedStatement;
+
 public class JdbcWriterRepositoryImpl implements WriterRepository {
 
     private final DataSource dataSource;
@@ -23,8 +25,7 @@ public class JdbcWriterRepositoryImpl implements WriterRepository {
                 "INSERT INTO writers (first_name, last_name) VALUES (?, ?)" :
                 "UPDATE writers SET first_name = ?, last_name = ? WHERE id = ?";
 
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setString(1, writer.getFirstName());
             stmt.setString(2, writer.getLastName());
@@ -49,8 +50,7 @@ public class JdbcWriterRepositoryImpl implements WriterRepository {
     @Override
     public Optional<Writer> findById(Long id) {
         String sql = "SELECT * FROM writers WHERE id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -92,8 +92,7 @@ public class JdbcWriterRepositoryImpl implements WriterRepository {
     @Override
     public void deleteById(Long id) {
         String sql = "DELETE FROM writers WHERE id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, id);
             stmt.executeUpdate();

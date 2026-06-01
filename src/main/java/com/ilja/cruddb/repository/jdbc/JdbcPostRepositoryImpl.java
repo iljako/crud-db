@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.ilja.cruddb.utils.JdbcUtils.getPreparedStatement;
+
 public class JdbcPostRepositoryImpl implements PostRepository {
 
     private final DataSource dataSource;
@@ -25,8 +27,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
                 "INSERT INTO posts (content, created, updated, status, writer_id) VALUES (?, ?, ?, ?::post_status, ?)" :
                 "UPDATE posts SET content = ?, updated = ?, status = ?::post_status WHERE id = ?";
 
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setString(1, post.getContent());
             if (post.getId() == null) {
@@ -57,8 +58,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
     @Override
     public Optional<Post> findById(Long id) {
         String sql = "SELECT * FROM posts WHERE id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -106,8 +106,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
     @Override
     public void deleteById(Long id) {
         String sql = "DELETE FROM posts WHERE id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, id);
             stmt.executeUpdate();
@@ -120,8 +119,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
     public List<Post> findByWriterId(Long writerId) {
         String sql = "SELECT * FROM posts WHERE writer_id = ? ORDER BY created DESC";
         List<Post> posts = new ArrayList<>();
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, writerId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -145,8 +143,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
     @Override
     public void addLabelToPost(Long postId, Long labelId) {
         String sql = "INSERT INTO post_labels (post_id, label_id) VALUES (?, ?)";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, postId);
             stmt.setLong(2, labelId);
@@ -159,8 +156,7 @@ public class JdbcPostRepositoryImpl implements PostRepository {
     @Override
     public void removeLabelFromPost(Long postId, Long labelId) {
         String sql = "DELETE FROM post_labels WHERE post_id = ? AND label_id = ?";
-        try (Connection conn = dataSource.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement stmt = getPreparedStatement(sql)) {
 
             stmt.setLong(1, postId);
             stmt.setLong(2, labelId);
