@@ -1,6 +1,7 @@
-package com.ilja.cruddb.repository;
+package com.ilja.cruddb.repository.jdbc;
 
 import com.ilja.cruddb.model.Writer;
+import com.ilja.cruddb.repository.WriterRepository;
 
 import javax.sql.DataSource;
 import java.sql.*;
