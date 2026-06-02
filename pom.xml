@@ -20,8 +20,8 @@
 
         <postgresql.version>42.6.0</postgresql.version>
         <liquibase.version>4.20.0</liquibase.version>
-        <junit-jupiter.version>5.9.3</junit-jupiter.version>
-        <mockito.version>5.3.1</mockito.version>
+        <junit-jupiter.version>5.11.4</junit-jupiter.version>
+        <mockito.version>5.14.2</mockito.version>
 
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <liquibase-maven-plugin.version>4.20.0</liquibase-maven-plugin.version>
@@ -71,6 +71,14 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <argLine>-Dnet.bytebuddy.experimental=true -XX:+EnableDynamicAgentLoading</argLine>
                 </configuration>
             </plugin>
             <plugin>
