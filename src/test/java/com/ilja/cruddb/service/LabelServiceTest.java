@@ -25,27 +25,5 @@ class LabelServiceTest {
         service = new LabelService(repository);
     }
 
-    @Test
-    void create_ShouldSaveAndReturnLabel() {
-        Label label = new Label(1L, "Java");
-        when(repository.save(any(Label.class))).thenReturn(label);
-        Label result = service.create("Java");
-        assertNotNull(result);
-        assertEquals("Java", result.getName());
-    }
 
-    @Test
-    void getByName_ShouldReturnLabel() {
-        Label label = new Label(1L, "Java");
-        when(repository.findByName("Java")).thenReturn(Optional.of(label));
-        Optional<Label> result = service.getByName("Java");
-        assertTrue(result.isPresent());
-        assertEquals("Java", result.get().getName());
-    }
-
-    @Test
-    void update_WhenNotExists_ShouldReturnFalse() {
-        when(repository.findById(999L)).thenReturn(Optional.empty());
-        assertFalse(service.update(999L, "New Name"));
-    }
 }

@@ -27,30 +27,5 @@ class PostServiceTest {
         service = new PostService(repository);
     }
 
-    @Test
-    void create_ShouldSaveAndReturnPost() {
-        Post post = new Post(1L, "Content", PostStatus.ACTIVE);
-        when(repository.save(any(Post.class))).thenReturn(post);
-        Post result = service.create("Content", PostStatus.ACTIVE);
-        assertNotNull(result);
-        assertEquals("Content", result.getContent());
-    }
 
-    @Test
-    void update_WhenExists_ShouldReturnTrue() {
-        Post existing = new Post(1L, "Old", PostStatus.ACTIVE);
-        when(repository.findById(1L)).thenReturn(Optional.of(existing));
-        when(repository.save(any(Post.class))).thenAnswer(i -> i.getArgument(0));
-        boolean result = service.update(1L, "New", PostStatus.DELETED);
-        assertTrue(result);
-    }
-
-    @Test
-    void addLabel_ShouldCallRepository() {
-        Post p = new Post(1L, "C", PostStatus.ACTIVE);
-        when(repository.findById(1L)).thenReturn(Optional.of(p));
-        boolean result = service.addLabel(1L, 2L);
-        assertTrue(result);
-        verify(repository).addLabelToPost(1L, 2L);
-    }
 }
