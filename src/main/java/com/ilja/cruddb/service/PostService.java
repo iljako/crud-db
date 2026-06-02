@@ -47,18 +47,4 @@ public class PostService {
             return true;
         }).orElse(false);
     }
-
-    public boolean addLabel(Long postId, Long labelId) {
-        return repository.findById(postId).map(p -> {
-            repository.addLabelToPost(postId, labelId);
-            return true;
-        }).orElse(false);
-    }
-
-    public boolean removeLabel(Long postId, Long labelId) {
-        return repository.findById(postId).map(p -> {
-            repository.removeLabelFromPost(postId, labelId);
-            return true;
-        }).orElse(false);
-    }
 }

@@ -75,8 +75,7 @@ public class Post {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Post)) return false;
-        Post post = (Post) o;
+        if (!(o instanceof Post post)) return false;
         return Objects.equals(id, post.id) && Objects.equals(content, post.content);
     }
 

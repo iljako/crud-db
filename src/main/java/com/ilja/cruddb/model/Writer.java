@@ -54,8 +54,7 @@ public class Writer {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Writer)) return false;
-        Writer writer = (Writer) o;
+        if (!(o instanceof Writer writer)) return false;
         return Objects.equals(id, writer.id) &&
                 Objects.equals(firstName, writer.firstName) &&
                 Objects.equals(lastName, writer.lastName);

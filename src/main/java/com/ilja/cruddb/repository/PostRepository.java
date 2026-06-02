@@ -6,8 +6,4 @@ import java.util.List;
 
 public interface PostRepository extends GenericRepository<Post, Long> {
     List<Post> findByWriterId(Long writerId);
-
-    void addLabelToPost(Long postId, Long labelId);
-
-    void removeLabelFromPost(Long postId, Long labelId);
 }

@@ -38,10 +38,12 @@ public class PostController {
     }
 
     public boolean addLabel(Long postId, Long labelId) {
-        return service.addLabel(postId, labelId);
+        //return service.addLabel(postId, labelId);
+        return false;
     }
 
     public boolean removeLabel(Long postId, Long labelId) {
-        return service.removeLabel(postId, labelId);
+        //return service.removeLabel(postId, labelId);
+        return false;
     }
 }

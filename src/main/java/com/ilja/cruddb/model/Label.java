@@ -33,8 +33,7 @@ public class Label {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Label)) return false;
-        Label label = (Label) o;
+        if (!(o instanceof Label label)) return false;
         return Objects.equals(id, label.id) && Objects.equals(name, label.name);
     }
 

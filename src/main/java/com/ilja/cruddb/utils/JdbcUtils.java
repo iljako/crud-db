@@ -25,7 +25,7 @@ public class JdbcUtils {
         if (instance == null) {
             instance = new JdbcUtils();
         }
-        return connection.prepareStatement(sql);
+        return connection.prepareStatement(sql,  Statement.RETURN_GENERATED_KEYS);
     }
 
     public static Statement getStatement() throws SQLException {
