@@ -19,7 +19,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <postgresql.version>42.6.0</postgresql.version>
-        <liquibase.version>4.20.0</liquibase.version>
+        <hibernate.version>6.4.4.Final</hibernate.version>
+        <flyway.version>10.10.0</flyway.version>
         <junit-jupiter.version>5.11.4</junit-jupiter.version>
         <mockito.version>5.14.2</mockito.version>
 
@@ -29,15 +30,26 @@
 
     <dependencies>
         <dependency>
-    		<groupId>org.postgresql</groupId>
-    		<artifactId>postgresql</artifactId>
-    		<version>${postgresql.version}</version>
-	</dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
+        </dependency>
 
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>${flyway.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+            <version>${flyway.version}</version>
         </dependency>
 
         <dependency>

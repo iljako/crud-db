@@ -2,7 +2,7 @@ package com.ilja.cruddb.modules;
 
 import com.ilja.cruddb.controller.PostController;
 import com.ilja.cruddb.repository.PostRepository;
-import com.ilja.cruddb.repository.jdbc.JdbcPostRepositoryImpl;
+import com.ilja.cruddb.repository.hibernate.HibernatePostRepositoryImpl;
 import com.ilja.cruddb.service.PostService;
 import com.ilja.cruddb.view.PostView;
 
@@ -12,7 +12,7 @@ public class PostModule implements AppModule {
     private final PostView view;
 
     public PostModule(Scanner scanner) {
-        PostRepository repo = new JdbcPostRepositoryImpl();
+        PostRepository repo = new HibernatePostRepositoryImpl();
         PostService service = new PostService(repo);
         PostController controller = new PostController(service);
         this.view = new PostView(controller, scanner);
